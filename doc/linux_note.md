@@ -1,6 +1,8 @@
-# 多个软件版本共存
+# Linux笔记
 
-## 以gcc为例
+## 多个软件版本共存
+
+### 以gcc为例
 
 ### 1、安装需要的gcc版本
 
@@ -24,3 +26,27 @@ sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-x 90
 ```bash
 sudo update-alternatives --config gcc
 ```
+
+## ssh免密登录
+
+### 1、生成ssh密钥
+
+```bash
+ssh-keygen -t ed25519 -C "your_email@example.com"
+```
+
+注意：如果你使用的是不支持 Ed25519 算法的旧系统，请使用以下命令：
+
+```bash
+ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+```
+
+生成时如使用默认配置，直接一路回车即可。
+
+### 2、上传公钥到服务器
+
+ssh-copy-id -i ~/.ssh/id_rsa.pub  user@xx.xx.xx.xx
+
+ssh-copy-id 命令：
+把本地主机的公钥复制到远程主机的 authorized_keys 文件中，并设置合适的权限。
+其中 -i 参数：指定公钥文件，如果不传入 -i 参数，ssh-copy-id 使用默认的 ~/.ssh/identity.pub 作为默认公钥。
