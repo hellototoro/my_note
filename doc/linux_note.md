@@ -50,3 +50,21 @@ ssh-copy-id -i ~/.ssh/id_rsa.pub  user@xx.xx.xx.xx
 ssh-copy-id 命令：
 把本地主机的公钥复制到远程主机的 authorized_keys 文件中，并设置合适的权限。
 其中 -i 参数：指定公钥文件，如果不传入 -i 参数，ssh-copy-id 使用默认的 ~/.ssh/identity.pub 作为默认公钥。
+
+## 更换镜像源
+
+### 1、linux镜像源
+
+### 2、pip镜像源
+
+临时换源
+
+```bash
+pip install markdown -i https://mirrors.aliyun.com/pypi/simple/
+```
+
+永久换源
+
+```bash
+pip config set global.index-url https://mirrors.aliyun.com/pypi/simple/
+```
