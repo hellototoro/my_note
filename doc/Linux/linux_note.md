@@ -55,16 +55,9 @@ ssh-copy-id 命令：
 
 ### 1、linux镜像源
 
-### 2、pip镜像源
 
-临时换源
-
+## 常用技巧
+### 1. 设置别名
 ```bash
-pip install markdown -i https://mirrors.aliyun.com/pypi/simple/
-```
-
-永久换源
-
-```bash
-pip config set global.index-url https://mirrors.aliyun.com/pypi/simple/
+alias ll='ls -l'
 ```
