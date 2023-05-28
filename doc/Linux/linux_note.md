@@ -31,17 +31,7 @@ sudo update-alternatives --config gcc
 
 ### 1、生成ssh密钥
 
-```bash
-ssh-keygen -t ed25519 -C "your_email@example.com"
-```
-
-注意：如果你使用的是不支持 Ed25519 算法的旧系统，请使用以下命令：
-
-```bash
-ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
-```
-
-生成时如使用默认配置，直接一路回车即可。
+查看ssh/ssh.md
 
 ### 2、上传公钥到服务器
 
@@ -55,9 +45,18 @@ ssh-copy-id 命令：
 
 ### 1、linux镜像源
 
+Ubuntu:
+
+```bash
+sudo cp -a /etc/apt/sources.list /etc/apt/sources.list.bak
+sudo sed -i "s@http://.*archive.ubuntu.com@http://repo.huaweicloud.com@g" /etc/apt/sources.list
+sudo sed -i "s@http://.*security.ubuntu.com@http://repo.huaweicloud.com@g" /etc/apt/sources.list
+```
 
 ## 常用技巧
+
 ### 1. 设置别名
+
 ```bash
 alias ll='ls -l'
 ```
