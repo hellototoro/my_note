@@ -31,7 +31,13 @@ sudo update-alternatives --config gcc
 
 ### 1、生成ssh密钥
 
-查看ssh/ssh.md
+先查看是否已经生成ssh密钥
+
+```bash
+ls -al ~/.ssh
+```
+
+如果没有，则根据ssh/ssh.md生成ssh密钥
 
 ### 2、上传公钥到服务器
 
