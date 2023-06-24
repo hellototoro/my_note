@@ -36,3 +36,7 @@ lsusb
 ```powershell
 usbipd wsl detach --busid <busid>
 ```
+
+5、使用图形化工具
+此外还可以使用图形化工具来管理，软件下载地址[https://gitlab.com/alelec/wsl-usb-gui/-/releases](https://gitlab.com/alelec/wsl-usb-gui/-/releases)
+![wsl_usb_manager](resource/wsl_usb_manager.png)
