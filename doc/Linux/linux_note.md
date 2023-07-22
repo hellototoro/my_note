@@ -41,11 +41,40 @@ ls -al ~/.ssh
 
 ### 2.2 上传公钥到服务器
 
+Linux系统：
+```bash
 ssh-copy-id -i ~/.ssh/id_rsa.pub  user@xx.xx.xx.xx
+```
 
 ssh-copy-id 命令：
 把本地主机的公钥复制到远程主机的 authorized_keys 文件中，并设置合适的权限。
 其中 -i 参数：指定公钥文件，如果不传入 -i 参数，ssh-copy-id 使用默认的 ~/.ssh/identity.pub 作为默认公钥。
+
+Windows系统：
+1. 将 id_ed25519.pub 复制到需要远程登陆的主机上
+```powershell
+cd C:\Users\<username>\.ssh\
+scp .\id_ed25519.pub user@xx.xx.xx.xx:~
+```
+
+2. 在~目录下查看是否有 .ssh 文件夹及 authorized_keys 文件
+如果没有 .ssh 文件夹，则新建一个
+```bash
+mkdir .ssh
+chmod 700 .ssh
+```
+
+如果没有 authorized_keys 文件，则新建一个
+```bash
+cd .ssh
+touch authorized_keys
+chmod 600 authorized_keys
+```
+
+最后将 id_ed25519.pub 追加到 authorized_keys 中
+```bash
+cat ~/id_ed25519.pub >> ~/.ssh/authorized_keys
+```
 
 ## 3. 更换镜像源
 
