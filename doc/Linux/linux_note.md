@@ -64,14 +64,14 @@ mkdir .ssh
 chmod 700 .ssh
 ```
 
-如果没有 authorized_keys 文件，则新建一个
+3. 如果没有 authorized_keys 文件，则新建一个
 ```bash
 cd .ssh
 touch authorized_keys
 chmod 600 authorized_keys
 ```
 
-最后将 id_ed25519.pub 追加到 authorized_keys 中
+4. 最后将 id_ed25519.pub 追加到 authorized_keys 中
 ```bash
 cat ~/id_ed25519.pub >> ~/.ssh/authorized_keys
 ```
