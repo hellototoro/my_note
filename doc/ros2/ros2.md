@@ -21,6 +21,23 @@ docker run -it osrf/ros:humble-desktop
 export DISPLAY=<MobaXterm 上的值>
 ```
 
+## 常见错误
+
+1. libEGL warning: failed to open /dev/dri/renderD128: Permission denied
+
+解决方法：将当前用户加入render组中
+```bash
+sudo usermod -aG render  $USER
+``````
+
+2. libEGL warning: MESA-LOADER: failed to open vgem: /usr/lib/dri/vgem_dri.so: cannot open shared object file: No such file or directory (search paths /usr/lib/x86_64-linux-gnu/dri:\$${ORIGIN}/dri:/usr/lib/dri, suffix _dri)
+
+解决方法：
+```bash
+export LIBGL_ALWAYS_INDIRECT=1
+export LIBGL_ALWAYS_SOFTWARE=1
+``````
+
 ## 基本操作
 
 ### topic
