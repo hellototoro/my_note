@@ -61,3 +61,11 @@ Hi <github id>! You've successfully authenticated, but GitHub does not provide s
 ```
 
 ## 3. 使用
+
+### 3.1 添加子仓库
+
+本地仓库添加远程仓库作为子仓库
+
+```bash
+git submodule add https://github.com/xxx/xxx.git
+```
