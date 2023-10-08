@@ -21,6 +21,23 @@ docker run -it osrf/ros:humble-desktop
 export DISPLAY=<MobaXterm 上的值>
 ```
 
+5、安装rosdepc工具
+rosdepc:安装ros依赖包的小工具
+```bash
+sudo apt install python3-pip
+pip install rosdepc
+```
+
+更新环境
+```bash
+rosdepc init && rosdepc update
+```
+
+6、安装编译工具colcon
+```bash
+sudo apt install python3-colcon-ros
+```
+
 ## 常见错误
 
 1. libEGL warning: failed to open /dev/dri/renderD128: Permission denied
@@ -36,7 +53,13 @@ sudo usermod -aG render  $USER
 ```bash
 export LIBGL_ALWAYS_INDIRECT=1
 export LIBGL_ALWAYS_SOFTWARE=1
-``````
+```
+
+## 基本配置
+
+### 1. 安装ROS命令管理器
+ROS命令管理器，全称ROS Command Manager，简称RCM，主要解决如何简化ROS软件包和系统软件包的安装、配置、启动，提高ROS的使用效率。
+
 
 ## 基本操作
 
@@ -95,3 +118,11 @@ ros2 node list
 ros2 node info <node_name>
 ros2 node info /my_turtle
 ```
+
+### run
+run每次只能运行一个节点；
+run运行节点的参数yaml文件需要手动指定。
+
+### launch
+launch可以运行多个，只要在launch文件中配置多个即可；
+launch则会在yaml文件查找同名节点下的ros__paramter参数。
