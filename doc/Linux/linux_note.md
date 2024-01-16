@@ -67,8 +67,7 @@ chmod 700 .ssh
 3. 如果没有 authorized_keys 文件，则新建一个
 ```bash
 cd .ssh
-touch authorized_keys
-chmod 600 authorized_keys
+touch authorized_keys && chmod 600 authorized_keys
 ```
 
 4. 最后将 id_ed25519.pub 追加到 authorized_keys 中
@@ -96,6 +95,7 @@ sudo sed -i "s@http://.*security.ubuntu.com@http://repo.huaweicloud.com@g" /etc/
 ```bash
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"
 ```
+设置.bashrc
 启用插件
 ```bash
 plugins=(git bundler osx rake ruby)
@@ -118,3 +118,10 @@ OSH_THEME="random" # (...please let it be pie... please be some pie..)
 ```bash
 alias ll='ls -l'
 ```
+
+## 5 添加PPA
+
+[!什么是 Ubuntu PPA 以及如何安装它？](https://geekflare.com/ubuntu-ppa/)
+
+
+udev

@@ -2,8 +2,16 @@
 
 ## 1、生成ssh密钥
 
+Linux
+
 ```bash
 ssh-keygen -t ed25519 -C "your_email@example.com"
+```
+
+Windows
+
+```powershell
+ssh-keygen.exe -t ed25519 -C "your_email@example.com"
 ```
 
 注意：如果你使用的是不支持 Ed25519 算法的旧系统，请使用以下命令：
