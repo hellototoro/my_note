@@ -119,9 +119,21 @@ OSH_THEME="random" # (...please let it be pie... please be some pie..)
 alias ll='ls -l'
 ```
 
-## 5 添加PPA
+## 6. 添加PPA
 
 [!什么是 Ubuntu PPA 以及如何安装它？](https://geekflare.com/ubuntu-ppa/)
 
+## 7. 内核编译与安装
 
-udev
+### 7.1 wsl2
+
+1. 安装生成依赖项：
+   `$ sudo apt install build-essential flex bison dwarves libssl-dev libelf-dev`
+2. 使用 WSL2 内核配置构建内核：
+   `$ make KCONFIG_CONFIG=Microsoft/config-wsl`
+
+安装内核模块和头文件
+sudo make modules_install headers_install
+
+将内核映像复制到 Windows 文件系统：
+cp arch/x86/boot/bzImage /mnt/c/
