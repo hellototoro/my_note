@@ -60,6 +60,28 @@ ssh -T git@github.com
 Hi <github id>! You've successfully authenticated, but GitHub does not provide shell access.
 ```
 
+### 2.3 设置代理
+
+```bash
+# 设置代理
+# 假设代理服务器地址为：127.0.0.1，端口为：7890
+git config --global http.proxy 127.0.0.1:7890
+git config --global https.proxy 127.0.0.1:7890
+
+# sock5代理
+git config --global http.proxy socks5 127.0.0.1:7891
+git config --global https.proxy socks5 127.0.0.1:7891
+
+# 查看代理
+git config --global --get http.proxy
+git config --global --get https.proxy
+
+#取消代理
+git config --global --unset http.proxy
+git config --global --unset https.proxy
+```
+
+
 ## 3. 使用
 
 ### 3.1 添加子仓库

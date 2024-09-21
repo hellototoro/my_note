@@ -111,6 +111,17 @@ OSH_THEME="agnoster" # (this is one of the fancy ones)
 OSH_THEME="random" # (...please let it be pie... please be some pie..)
 ```
 
+### 4.2 设置代理
+
+```bash
+export http_proxy="http://127.0.0.1:7890"
+export https_proxy="http://127.0.0.1:7890"
+
+unset http_proxy
+unset https_proxy
+```
+
+
 ## 5. 常用技巧
 
 ### 5.1 设置别名
