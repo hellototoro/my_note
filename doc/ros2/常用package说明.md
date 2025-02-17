@@ -1,0 +1,5 @@
+joint_state_publisher功能包为机器人发布sensor_msgs/JointState消息，该包从参数服务器读取robot_description参数，查找所有非固定关节，并发布定义了所有这些关节的JointState消息。
+发布每个joint（除fixed类型）的状态
+
+robot_state_publisher使用参数robot_description指定的URDF和joint_states (sensor_msgs/JointState)话题中的关节位置来计算机器人的正向运动学，并通过tf发布结果。
+将机器人各个links、joints之间的关系，通过TF的形式，整理成三维姿态信息发布

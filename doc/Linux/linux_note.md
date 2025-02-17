@@ -42,6 +42,7 @@ ls -al ~/.ssh
 ### 2.2 上传公钥到服务器
 
 Linux系统：
+
 ```bash
 ssh-copy-id -i ~/.ssh/id_rsa.pub  user@xx.xx.xx.xx
 ```
@@ -51,28 +52,40 @@ ssh-copy-id 命令：
 其中 -i 参数：指定公钥文件，如果不传入 -i 参数，ssh-copy-id 使用默认的 ~/.ssh/identity.pub 作为默认公钥。
 
 Windows系统：
+
 1. 将 id_ed25519.pub 复制到需要远程登陆的主机上
+
 ```powershell
 cd C:\Users\<username>\.ssh\
 scp .\id_ed25519.pub user@xx.xx.xx.xx:~
 ```
 
 2. 在~目录下查看是否有 .ssh 文件夹及 authorized_keys 文件
+
 如果没有 .ssh 文件夹，则新建一个
+
 ```bash
 mkdir .ssh
 chmod 700 .ssh
 ```
 
 3. 如果没有 authorized_keys 文件，则新建一个
+
 ```bash
 cd .ssh
 touch authorized_keys && chmod 600 authorized_keys
 ```
 
 4. 最后将 id_ed25519.pub 追加到 authorized_keys 中
+
 ```bash
 cat ~/id_ed25519.pub >> ~/.ssh/authorized_keys
+```
+
+### 2.3 清除指定名称的RSA（即删除 `~/.ssh/known_hosts` 里面指定的主机）
+
+```bash
+ssh-keygen -R hostname
 ```
 
 ## 3. 更换镜像源
@@ -87,20 +100,32 @@ sudo sed -i "s@http://.*archive.ubuntu.com@http://repo.huaweicloud.com@g" /etc/a
 sudo sed -i "s@http://.*security.ubuntu.com@http://repo.huaweicloud.com@g" /etc/apt/sources.list
 ```
 
+docker:
+
+```bash
+#在更换源之前，安装https的支持
+apt install --reinstall ca-certificates
+```
+
 ## 4. 常用设置
 
 ### 4.1 安装 oh-my-bash
 
 项目地址[https://github.com/ohmybash/oh-my-bash](https://github.com/ohmybash/oh-my-bash)
+
 ```bash
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"
 ```
+
 设置.bashrc
 启用插件
+
 ```bash
 plugins=(git bundler osx rake ruby)
 ```
+
 选择主题
+
 ```bash
 OSH_THEME="powerline"
 
@@ -121,6 +146,21 @@ unset http_proxy
 unset https_proxy
 ```
 
+### 4.3 安装mdns
+
+```bash
+# 1. 安装软件
+sudo apt install avahi-daemon libnss-mdns
+
+# 2. 启动服务
+sudo systemctl enable --now avahi-daemon
+
+# 3. 查看配置
+cat /etc/nsswitch.conf
+# now, make sure that `mdns4_minimal [NOTFOUND=return]` exists and goes after `files`
+hosts:          files mdns4_minimal [NOTFOUND=return] dns
+
+```
 
 ## 5. 常用技巧
 
@@ -128,6 +168,31 @@ unset https_proxy
 
 ```bash
 alias ll='ls -l'
+```
+
+### 5.2 清理空间
+
+```bash
+rm -rf ~/.cache/*
+rm -rf vscode*
+rm -rf .vscode*
+
+condactivate
+conda env list | grep -v "^#" | awk '{print $1}' | xargs -I {} conda remove --name {} --all -y
+conda clean -all -y
+conda deactivate
+
+sudo apt clean
+sudo apt remove --purge package-name -y
+sudo apt autoremove -y
+sudo apt update
+sudo apt upgrade -y
+```
+
+### 5.3 恢复默认环境变量
+
+```bash
+source /etc/environment
 ```
 
 ## 6. 添加PPA
@@ -148,3 +213,8 @@ sudo make modules_install headers_install
 
 将内核映像复制到 Windows 文件系统：
 cp arch/x86/boot/bzImage /mnt/c/
+
+### 7.2 SBC
+
+1. 设置交叉编译环境
+
