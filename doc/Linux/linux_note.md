@@ -162,6 +162,8 @@ hosts:          files mdns4_minimal [NOTFOUND=return] dns
 
 ```
 
+此时在局域网内就可以通过`hostname.local`代替ip进行远程登录等功能
+
 ## 5. 常用技巧
 
 ### 5.1 设置别名
@@ -209,12 +211,70 @@ source /etc/environment
    `$ make KCONFIG_CONFIG=Microsoft/config-wsl`
 
 安装内核模块和头文件
-sudo make modules_install headers_install
+`sudo make modules_install headers_install`
 
 将内核映像复制到 Windows 文件系统：
-cp arch/x86/boot/bzImage /mnt/c/
+`cp arch/x86/boot/bzImage /mnt/c/`
 
 ### 7.2 SBC
 
-1. 设置交叉编译环境
+##### 设置交叉编译环境（以Orangepi 5为例）
 
+- 下载工具链（根据官方要求下载对应的工具版本）
+
+```bash
+wget https://mirrors.tuna.tsinghua.edu.cn/armbian-releases/_toolchain/gcc-arm-11.2-2022.02-x86_64-aarch64-none-linux-gnu.tar.xz
+
+tar xf gcc-arm-11.2-2022.02-x86_64-aarch64-none-linux-gnu.tar.xz
+
+# 将其添加到环境变量中，例如：
+export PATH=$PATH:/path/to/gcc-arm-11.2-2022.02-x86_64-aarch64-none-linux-gnu/bin
+
+# 或者
+export CROSS_COMPILE=/path/to/gcc-arm-11.2-2022.02-x86_64-aarch64-none-linux-gnu/bin/aarch64-linux-gnu-
+```
+
+- 下载kernel源码
+
+```bash
+# 5.10版本
+git clone --depth=1 -b orange-pi-5.10-rk35xx https://github.com/orangepi-xunlong/linux-orangepi
+
+# 6.1版本
+git clone --depth=1 -b orange-pi-6.1-rk35xx https://github.com/orangepi-xunlong/linux-orangepi
+
+tar zxf orange-pi-<kernel version>-rk35xx.tar.gz
+```
+
+- 编译
+
+```bash
+# 设置默认配置
+make ARCH=arm64 CROSS_COMPILE=aarch64-none-linux-gnu- rockchip_linux_defconfig
+
+# 编译所有内容
+make -j16 ARCH=arm64 CROSS_COMPILE=aarch64-none-linux-gnu-
+
+# 或者单独编译
+# 编译Image
+make -j16 ARCH=arm64 CROSS_COMPILE=aarch64-none-linux-gnu- Image
+
+# 编译DTS
+make ARCH=arm64 CROSS_COMPILE=aarch64-none-linux-gnu- dtbs
+
+# 编译modules
+make -j16 ARCH=arm64 CROSS_COMPILE=aarch64-none-linux-gnu- modules
+```
+
+- 树外编译模块
+
+```bash
+# 设置默认配置
+make ARCH=arm64 CROSS_COMPILE=aarch64-none-linux-gnu- rockchip_linux_defconfig
+
+make ARCH=arm64 CROSS_COMPILE=aarch64-none-linux-gnu- oldconfig
+make ARCH=arm64 CROSS_COMPILE=aarch64-none-linux-gnu- prepare
+make ARCH=arm64 CROSS_COMPILE=aarch64-none-linux-gnu- scripts
+make ARCH=arm64 CROSS_COMPILE=aarch64-none-linux-gnu- modules_prepare
+
+```
